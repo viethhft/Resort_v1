@@ -6,32 +6,44 @@ namespace Resort.Repo.Reponsitories
 {
 	public class UserDetailRepo : IUserDetailRepo
 	{
-		private readonly IUserDetailRepo _userDetailRepo;
 		private readonly MyContext _myContext;
-		public UserDetailRepo(IUserDetailRepo userDetailRepo, MyContext myContext)
+		public UserDetailRepo(MyContext myContext)
 		{
-			_userDetailRepo = userDetailRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddUser(User user)
+		public async Task<bool> AddUserDetail(UserDetail user)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.UserDetails.AddAsync(user);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<User> GetUserByEmailAndPass(string email, string pass)
+		public Task<UserDetail> GetUserDetailByIdUser(int id)
 		{
-			throw new NotImplementedException();
+			var lst=_myContext.UserDetails.Where(c=>c.IdUser== id).ToList();
+			return lst;
 		}
 
-		public Task<User> GetUserById(int id)
+		public async Task<bool> UpdateUserDetail(UserDetail user)
 		{
-			throw new NotImplementedException();
-		}
-
-		public Task<bool> UpdateUser(User user)
-		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.UserDetails.Update(user);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

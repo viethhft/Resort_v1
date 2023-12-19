@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,32 +7,58 @@ namespace Resort.Repo.Reponsitories
 {
 	public class RateRepo : IRateRepo
 	{
-		private readonly IRateRepo _rateRepo;
 		private readonly MyContext _myContext;
-		public RateRepo(IRateRepo rateRepo, MyContext myContext)
+		public RateRepo(MyContext myContext)
 		{
-			_rateRepo = rateRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddRate(Rate rate)
+		public async Task<bool> AddRate(Rate rate)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.Rates.AddAsync(rate);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<List<Rate>> GetListRateByIdResort()
+		public async Task<List<Rate>> GetListRateByIdResort(int id)
 		{
-			throw new NotImplementedException();
+			var lst=await _myContext.Rates.Where(c=>c.IdResort== id).ToListAsync();
+			return lst;
 		}
 
-		public Task<bool> RemoveRate(Rate rate)
+		public async Task<bool> RemoveRate(Rate rate)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				 _myContext.Rates.Remove(rate);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<bool> UpdateRate(Rate rate)
+		public async Task<bool> UpdateRate(Rate rate)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.Rates.Update(rate);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

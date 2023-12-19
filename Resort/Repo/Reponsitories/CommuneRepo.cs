@@ -7,11 +7,9 @@ namespace Resort.Repo.Reponsitories
 {
 	public class CommuneRepo : ICommuneRepo
 	{
-		private readonly ICommuneRepo _communeRepo;
 		private readonly MyContext _myContext;
-		public CommuneRepo(ICommuneRepo communeRepo, MyContext myContext)
+		public CommuneRepo(MyContext myContext)
 		{
-			_communeRepo = communeRepo;
 			_myContext = myContext;
 		}
 
@@ -23,7 +21,7 @@ namespace Resort.Repo.Reponsitories
 
 		public async Task<Commune> GetCommuneByID(int id)
 		{
-			Commune commune = await _myContext.Communes.Where(c => c.IdDistrict == id).FirstOrDefaultAsync();
+			var commune = await _myContext.Communes.Where(c => c.IdDistrict == id).FirstOrDefaultAsync();
 			return commune;
 		}
 	}

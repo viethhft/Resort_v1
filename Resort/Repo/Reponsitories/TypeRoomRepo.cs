@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,37 +7,64 @@ namespace Resort.Repo.Reponsitories
 {
 	public class TypeRoomRepo : ITypeRoomRepo
 	{
-		private readonly ITypeRoomRepo _typeRoomRepo;
 		private readonly MyContext _myContext;
-		public TypeRoomRepo(ITypeRoomRepo typeRoomRepo, MyContext myContext)
+		public TypeRoomRepo(MyContext myContext)
 		{
-			_typeRoomRepo = typeRoomRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddTypeRoom(TypeRoom typeRoom)
+		public async Task<bool> AddTypeRoom(TypeRoom typeRoom)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.TypeRooms.AddAsync(typeRoom);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<List<TypeRoom>> GetAllTypeRooms()
+		public async Task<List<TypeRoom>> GetAllTypeRooms()
 		{
-			throw new NotImplementedException();
+			var lst = await _myContext.TypeRooms.ToListAsync();
+			return lst;
 		}
 
-		public Task<TypeRoom> GetTypeRoom(int id)
+		public async Task<TypeRoom> GetTypeRoom(int id)
 		{
-			throw new NotImplementedException();
+			var t = await _myContext.TypeRooms.Where(c => c.IdTypeRoom == id).FirstOrDefaultAsync();
+			return t;
 		}
 
-		public Task<bool> RemoveTypeRoom(TypeRoom typeRoom)
+		public async Task<bool> RemoveTypeRoom(TypeRoom typeRoom)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.TypeRooms.Remove(typeRoom);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<bool> UpdateTypeRoom(TypeRoom typeRoom)
+		public async Task<bool> UpdateTypeRoom(TypeRoom typeRoom)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.TypeRooms.Update(typeRoom);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

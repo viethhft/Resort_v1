@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,27 +7,44 @@ namespace Resort.Repo.Reponsitories
 {
 	public class ResortDetailRepo : IResortDetailRepo
 	{
-		private readonly IResortDetailRepo _resortDetailRepo;
 		private readonly MyContext _myContext;
-		public ResortDetailRepo(IResortDetailRepo resortDetailRepo, MyContext myContext)
+		public ResortDetailRepo(MyContext myContext)
 		{
-			_resortDetailRepo = resortDetailRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddResortDetail(ResortDetail resortDetail)
+		public async Task<bool> AddResortDetail(ResortDetail resortDetail)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.ResortDetails.AddAsync(resortDetail);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<ResortDetail> GetResortDetailByID(int id)
+		public async Task<ResortDetail> GetResortDetailByID(int id)
 		{
-			throw new NotImplementedException();
+			var lst = await _myContext.ResortDetails.Where(c => c.IdResort == id).FirstOrDefaultAsync();
+			return lst;
 		}
 
-		public Task<bool> UpdateResortDetail(ResortDetail resortDetail)
+		public async Task<bool> UpdateResortDetail(ResortDetail resortDetail)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.ResortDetails.Update(resortDetail);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

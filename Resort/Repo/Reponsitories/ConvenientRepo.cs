@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,32 +7,50 @@ namespace Resort.Repo.Reponsitories
 {
 	public class ConvenientRepo : IConvenientRepo
 	{
-		private readonly IConvenientRepo _convenientRepo;
 		private readonly MyContext _myContext;
-		public ConvenientRepo(IConvenientRepo convenientRepo, MyContext myContext)
+		public ConvenientRepo(MyContext myContext)
 		{
-			_convenientRepo = convenientRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddConvenient(Convenient convenient)
+		public async Task<bool> AddConvenient(Convenient convenient)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.Convenients.AddAsync(convenient);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<List<Convenient>> GetAllConvenient()
+		public async Task<List<Convenient>> GetAllConvenient()
 		{
-			throw new NotImplementedException();
+			var lst = await _myContext.Convenients.ToListAsync();
+			return lst;
 		}
 
-		public Task<Convenient> GetConvenient(int id)
+		public async Task<Convenient> GetConvenient(int id)
 		{
-			throw new NotImplementedException();
+			var conven = await _myContext.Convenients.Where(c => c.IdConvenient == id).FirstOrDefaultAsync();
+			return conven;
 		}
 
-		public Task<bool> UpdateConvenient(Convenient convenient)
+		public async Task<bool> UpdateConvenient(Convenient convenient)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				 _myContext.Convenients.Update(convenient);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

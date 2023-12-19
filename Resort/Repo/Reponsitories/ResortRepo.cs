@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,27 +7,44 @@ namespace Resort.Repo.Reponsitories
 {
 	public class ResortRepo : IResortRepo
 	{
-		private readonly IResortRepo _resortRepo;
 		private readonly MyContext _myContext;
-		public ResortRepo(IResortRepo resortRepo, MyContext myContext)
+		public ResortRepo(MyContext myContext)
 		{
-			_resortRepo = resortRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddResort(Models.Resort resort)
+		public async Task<bool> AddResort(Models.Resort resort)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.Resorts.AddAsync(resort);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<List<Models.Resort>> GetAllResort()
+		public async Task<List<Models.Resort>> GetAllResort()
 		{
-			throw new NotImplementedException();
+			var lst=await _myContext.Resorts.ToListAsync();
+			return lst;
 		}
 
-		public Task<bool> UpdateResort(Models.Resort resort)
+		public async Task<bool> UpdateResort(Models.Resort resort)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.Resorts.Update(resort);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

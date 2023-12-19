@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,22 +7,22 @@ namespace Resort.Repo.Reponsitories
 {
 	public class DistrictRepo : IDistrictRepo
 	{
-		private readonly IDistrictRepo _districtRepo;
 		private readonly MyContext _myContext;
-		public DistrictRepo(IDistrictRepo districtRepo, MyContext myContext)
+		public DistrictRepo(MyContext myContext)
 		{
-			_districtRepo = districtRepo;
 			_myContext = myContext;
 		}
 
-		public Task<List<District>> GetAllDistrict()
+		public async Task<List<District>> GetAllDistrict()
 		{
-			throw new NotImplementedException();
+			var lst = await _myContext.Districts.ToListAsync();
+			return lst;
 		}
 
-		public Task<List<District>> GetDistrictByID(int id)
+		public async Task<List<District>> GetDistrictByID(int id)
 		{
-			throw new NotImplementedException();
+			var list = await _myContext.Districts.Where(c => c.IdProvince == id).ToListAsync();
+			return list;
 		}
 	}
 }

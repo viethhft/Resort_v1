@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,37 +7,64 @@ namespace Resort.Repo.Reponsitories
 {
 	public class ServiceRepo : IServiceRepo
 	{
-		private readonly IServiceRepo _serviceRepo;
 		private readonly MyContext _myContext;
-		public ServiceRepo(IServiceRepo serviceRepo, MyContext myContext)
+		public ServiceRepo(MyContext myContext)
 		{
-			_serviceRepo = serviceRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddService(Service service)
+		public async Task<bool> AddService(Service service)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.Services.AddAsync(service);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<List<Service>> GetAllServices()
+		public async Task<List<Service>> GetAllServices()
 		{
-			throw new NotImplementedException();
+			var lst = await _myContext.Services.ToListAsync();
+			return lst;
 		}
 
-		public Task<Service> GetServicesById(int id)
+		public async Task<Service> GetServicesById(int id)
 		{
-			throw new NotImplementedException();
+			var ser=await _myContext.Services.Where(c=>c.IdService==id).FirstOrDefaultAsync();
+			return ser;
 		}
 
-		public Task<bool> RemoveService(Service service)
+		public async Task<bool> RemoveService(Service service)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.Services.Remove(service);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
 		public Task<bool> UpdateService(Service service)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.Services.Update(service);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

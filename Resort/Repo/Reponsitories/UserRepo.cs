@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,27 +7,50 @@ namespace Resort.Repo.Reponsitories
 {
 	public class UserRepo : IUserRepo
 	{
-		private readonly IUserRepo _userRepo;
 		private readonly MyContext _myContext;
-		public UserRepo(IUserRepo userRepo, MyContext myContext)
+		public UserRepo(MyContext myContext)
 		{
-			_userRepo = userRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> AddUserDetail(UserDetail user)
+		public async Task<bool> AddUser(UserDetail user)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.Users.AddAsync(user);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<UserDetail> GetUserDetailByIdUser(int id)
+		public async Task<User> GetUserByEmailAndPass(string email, string pass)
 		{
-			throw new NotImplementedException();
+			var user =await _myContext.Users.Where(c=>c.Email==email&& c.Password==pass).FirstOrDefaultAsync();
+			return user;
 		}
 
-		public Task<bool> UpdateUserDetail(UserDetail user)
+		public async Task<User> GetUserById(int id)
 		{
-			throw new NotImplementedException();
+			var user= await _myContext.Users.Where(c=>c.IdUser==id).FirstOrDefaultAsync();
+			return user;
+		}
+
+		public async Task<bool> UpdateUser(UserDetail user)
+		{
+			try
+			{
+				 _myContext.Users.Update(user);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

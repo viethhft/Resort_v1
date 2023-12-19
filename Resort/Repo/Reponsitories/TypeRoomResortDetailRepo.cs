@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,32 +7,58 @@ namespace Resort.Repo.Reponsitories
 {
 	public class TypeRoomResortDetailRepo : ITypeRoomResortDetailRepo
 	{
-		private readonly ITypeRoomResortDetailRepo _typeRoomResortDetailRepo;
 		private readonly MyContext _myContext;
-		public TypeRoomResortDetailRepo(ITypeRoomResortDetailRepo typeRoomResortDetailRepo, MyContext myContext)
+		public TypeRoomResortDetailRepo(MyContext myContext)
 		{
-			_typeRoomResortDetailRepo = typeRoomResortDetailRepo;
 			_myContext = myContext;
 		}
 
-		public Task<bool> Add(TypeRoomResortDetail typeRoom)
+		public async Task<bool> Add(TypeRoomResortDetail typeRoom)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				await _myContext.TypeRoomResortDetails.AddAsync(typeRoom);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<List<TypeRoomResortDetail>> GetListTypeRoomByIdResort(int id)
+		public async Task<List<TypeRoomResortDetail>> GetListTypeRoomByIdResort(int id)
 		{
-			throw new NotImplementedException();
+			var lst = await _myContext.TypeRoomResortDetails.Where(c => c.IdResortDetail == id).ToListAsync();
+			return lst;
 		}
 
-		public Task<bool> Remove(TypeRoomResortDetail typeRoom)
+		public async Task<bool> Remove(TypeRoomResortDetail typeRoom)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.TypeRoomResortDetails.Remove(typeRoom);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 
-		public Task<bool> Update(TypeRoomResortDetail typeRoom)
+		public async Task<bool> Update(TypeRoomResortDetail typeRoom)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				_myContext.TypeRoomResortDetails.Remove(typeRoom);
+				await _myContext.SaveChangesAsync();
+				return true;
+			}
+			catch (Exception)
+			{
+				return false;
+			}
 		}
 	}
 }

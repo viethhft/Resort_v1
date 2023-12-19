@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -6,22 +7,23 @@ namespace Resort.Repo.Reponsitories
 {
 	public class ProvinceRepo : IProvinceRepo
 	{
-		private readonly IProvinceRepo _provinceRepo;
 		private readonly MyContext _myContext;
-		public ProvinceRepo(IProvinceRepo provinceRepo, MyContext myContext)
+		public ProvinceRepo(MyContext myContext)
 		{
-			_provinceRepo = provinceRepo;
 			_myContext = myContext;
 		}
 
-		public Task<List<Province>> GetAllProvince()
+		public async Task<List<Province>> GetAllProvince()
 		{
-			throw new NotImplementedException();
+			var lst = await _myContext.Provinces.ToListAsync();
+			return lst;
 		}
 
-		public Task<List<Province>> GetProvinceByID(int id)
+		public async Task<Province> GetProvinceByID(int id)
 		{
-			throw new NotImplementedException();
+			var lst=await _myContext.Provinces.Where(c=>c.IdProvince==id).FirstOrDefaultAsync();
+			return lst;
+
 		}
 	}
 }
