@@ -1,4 +1,5 @@
-﻿using Resort.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -26,9 +27,9 @@ namespace Resort.Repo.Reponsitories
 			}
 		}
 
-		public Task<UserDetail> GetUserDetailByIdUser(int id)
+		public async Task<UserDetail> GetUserDetailByIdUser(int id)
 		{
-			var lst=_myContext.UserDetails.Where(c=>c.IdUser== id).ToList();
+			var lst=await _myContext.UserDetails.Where(c=>c.IdUser== id).FirstOrDefaultAsync();
 			return lst;
 		}
 

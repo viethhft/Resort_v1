@@ -53,7 +53,7 @@ namespace Resort.Repo.Reponsitories
 			}
 		}
 
-		public Task<bool> UpdateService(Service service)
+		public async Task<bool> UpdateService(Service service)
 		{
 			try
 			{

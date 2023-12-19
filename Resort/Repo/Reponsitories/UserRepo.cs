@@ -13,7 +13,7 @@ namespace Resort.Repo.Reponsitories
 			_myContext = myContext;
 		}
 
-		public async Task<bool> AddUser(UserDetail user)
+		public async Task<bool> AddUser(User user)
 		{
 			try
 			{
@@ -39,11 +39,11 @@ namespace Resort.Repo.Reponsitories
 			return user;
 		}
 
-		public async Task<bool> UpdateUser(UserDetail user)
+		public async Task<bool> UpdateUser(User user)
 		{
 			try
 			{
-				 _myContext.Users.Update(user);
+				_myContext.Users.Update(user);
 				await _myContext.SaveChangesAsync();
 				return true;
 			}
