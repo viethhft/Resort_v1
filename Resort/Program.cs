@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Resort.Context;
 using Resort.Repo.IReponsitories;
 using Resort.Repo.Reponsitories;
+using Resort.Ser.IServices;
+using Resort.Ser.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,35 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<IUserRepo,UserRepo>();
 builder.Services.AddScoped<IUserDetailRepo,UserDetailRepo>();
+builder.Services.AddScoped<ICommuneRepo,CommuneRepo>();
+builder.Services.AddScoped<IProvinceRepo,ProvinceRepo>();
+builder.Services.AddScoped<IDistrictRepo,DistrictRepo>();
+builder.Services.AddScoped<IResortRepo,ResortRepo>();
+builder.Services.AddScoped<IResortDetailRepo, ResortDetailRepo>();
+builder.Services.AddScoped<IResortDetailServicesRepo,ResortDetailServicesRepo>();
+builder.Services.AddScoped<IRateRepo,RateRepo>();
+builder.Services.AddScoped<IRoleRepo,RoleRepo>();
+builder.Services.AddScoped<IConvenientRepo,ConvenientRepo>();
+builder.Services.AddScoped<IServiceRepo,ServiceRepo>();
+builder.Services.AddScoped<ITypeRoomRepo,TypeRoomRepo>();
+builder.Services.AddScoped<ITypeRoomResortDetailRepo,TypeRoomResortDetailRepo>();
+builder.Services.AddScoped<IConvenientResortRepo,ConvenientResortRepo>();
+
+builder.Services.AddScoped<IUserSer, UserSer>();
+builder.Services.AddScoped<IUserDetailSer, UserDetailSer>();
+builder.Services.AddScoped<ICommuneSer, CommuneSer>();
+builder.Services.AddScoped<IProvinceSer, ProvinceSer>();
+builder.Services.AddScoped<IDistrictSer, DistrictSer>();
+builder.Services.AddScoped<IResortSer, ResortSer>();
+builder.Services.AddScoped<IResortDetailSer, ResortDetailSer>();
+builder.Services.AddScoped<IResortDetailServicesSer, ResortDetailServiceSer>();
+builder.Services.AddScoped<IRateSer, RateSer>();
+builder.Services.AddScoped<IRoleSer, RoleSer>();
+builder.Services.AddScoped<IConvenientSer, ConvenientSer>();
+builder.Services.AddScoped<IServiceSer, ServiceSer>();
+builder.Services.AddScoped<ITypeRoomSer, TypeRoomSer>();
+builder.Services.AddScoped<ITypeRoomResortDetailSer, TypeRoomResortDetailSer>();
+builder.Services.AddScoped<IConvenientResortSer, ConvenientResortSer>();
 
 var app = builder.Build();
 
