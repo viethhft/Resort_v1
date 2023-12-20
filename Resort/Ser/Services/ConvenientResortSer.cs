@@ -1,9 +1,10 @@
 ﻿using Resort.Models;
 using Resort.Repo.IReponsitories;
+using Resort.Ser.IServices;
 
 namespace Resort.Ser.Services
 {
-    public class ConvenientResortSer : IConvenientResortRepo
+    public class ConvenientResortSer : IConvenientResortSer
     {
         private readonly IConvenientResortRepo _convenientResortRepo;
         public ConvenientResortSer(IConvenientResortRepo convenientResortRepo)
