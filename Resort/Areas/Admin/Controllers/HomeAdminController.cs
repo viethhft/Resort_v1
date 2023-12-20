@@ -26,5 +26,11 @@ namespace Resort.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [Route("Admin/ForgotPassword")]
+        public IActionResult ForGotPassword()
+        {
+            return View();
+        }
     }
 }
