@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
 
@@ -7,29 +8,13 @@ namespace Resort.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeAdminController : Controller
     {
-		User user = null;
-        private readonly IUserRepo _userRepo;
-        private readonly IUserDetailRepo _userDetailRepo;
-        public HomeAdminController(IUserRepo userRepo,IUserDetailRepo userDetailRepo)
+        [Route("Admin/Home")]
+        public IActionResult IndexAdmin()
         {
-            _userRepo= userRepo;
-            _userDetailRepo = userDetailRepo;
+            var user = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("user"));
+            ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
+            return View(user);
         }
-		[Route("Admin/Home")]
-        public async Task<IActionResult> IndexAdmin(string email, string pass)
-        {
-			var user = await _userRepo.GetUserByEmailAndPass(email, pass);
-			if (user != null)
-			{
-                ViewData["userDetail"] = await _userDetailRepo.GetUserDetailByIdUser(user.IdUser);
-				return View(user);
-			}
-			else
-			{
-                return BadRequest();
-			}
-		}
-
         [Route("Admin/Login")]
         public IActionResult AdminLoginAccount()
         {
