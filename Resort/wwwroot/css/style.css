@@ -4794,3 +4794,35 @@ h1, h2, h3, h4, h5, h6 {
         .social-login a.google:hover {
             background: #e82e1e;
         }
+.container-login10026 {
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #9053c7;
+    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+}
+
+.wrap-login10026 {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 46px 70px 36px 61px;
+}
