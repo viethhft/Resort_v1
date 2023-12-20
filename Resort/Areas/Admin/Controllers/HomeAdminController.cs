@@ -1,15 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Resort.Models;
+using Resort.Repo.IReponsitories;
 
 namespace Resort.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeAdminController : Controller
     {
-        [Route("Admin/Home")]
-        public IActionResult IndexAdmin()
+		User user = null;
+        private readonly IUserRepo _userRepo;
+        private readonly IUserDetailRepo _userDetailRepo;
+        public HomeAdminController(IUserRepo userRepo,IUserDetailRepo userDetailRepo)
         {
-            return View();
+            _userRepo= userRepo;
+            _userDetailRepo = userDetailRepo;
         }
+		[Route("Admin/Home")]
+        public async Task<IActionResult> IndexAdmin(string email, string pass)
+        {
+			var user = await _userRepo.GetUserByEmailAndPass(email, pass);
+			if (user != null)
+			{
+                ViewData["userDetail"] = await _userDetailRepo.GetUserDetailByIdUser(user.IdUser);
+				return View(user);
+			}
+			else
+			{
+                return BadRequest();
+			}
+		}
 
         [Route("Admin/Login")]
         public IActionResult AdminLoginAccount()

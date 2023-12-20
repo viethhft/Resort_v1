@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Resort.Context;
+using Resort.Repo.IReponsitories;
+using Resort.Repo.Reponsitories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,16 @@ builder.Services.AddDbContext<MyContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("Resort"));
 });
+
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout= TimeSpan.FromMinutes(30);
+	options.Cookie.HttpOnly= true;
+	options.Cookie.IsEssential= true;
+});
+
+builder.Services.AddScoped<IUserRepo,UserRepo>();
+builder.Services.AddScoped<IUserDetailRepo,UserDetailRepo>();
 
 var app = builder.Build();
 
