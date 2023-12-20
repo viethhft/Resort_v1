@@ -4,11 +4,162 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Vendors styles-->
+    <link rel="stylesheet" href="~/css/simplebarVdn.css">
+    <link rel="stylesheet" href="~/css/simplebar.css">
+    <!--Icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <!-- Main styles for this application-->
+    <link href="~/css/styleAdmin.css" rel="stylesheet">
 </head>
 <body>
+    <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+        <div class="sidebar-brand d-none d-md-flex">
+            <div class="sidebar-brand-full" width="118" height="46">
+                <img src="~/img/logo2.png" alt="" height="70">
+            </div>
+            <div class="sidebar-brand-narrow" width="46" height="46">
+                <img src="~/img/logo2.png" alt="" height="50">
+            </div>
+        </div>
+        <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
 
+                    <i class="bi bi-speedometer2"></i>
+                    BẢNG ĐIỀU KHIỂN<span class="badge badge-sm bg-info ms-auto">MỚI</span>
+                </a>
+            </li>
+            <li class="nav-group">
+                <a class="nav-link nav-group-toggle" href="#">
+
+                    <i class="bi bi-plus-circle"></i>
+                    Thêm Resort
+                </a>
+                <ul class="nav-group-items">
+                    <li class="nav-item"><a class="nav-link" href="forms/form-control.html">Form Control</a></li>
+                    <li class="nav-item"><a class="nav-link" href="forms/select.html"> Select</a></li>
+                    <li class="nav-item"><a class="nav-link" href="forms/checks-radios.html"> Checks and radios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="forms/range.html"> Range</a></li>
+                    <li class="nav-item"><a class="nav-link" href="forms/input-group.html"> Input group</a></li>
+                    <li class="nav-item"><a class="nav-link" href="forms/floating-labels.html"> Floating labels</a></li>
+                    <li class="nav-item"><a class="nav-link" href="forms/layout.html"> Layout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="forms/validation.html"> Validation</a></li>
+                </ul>
+            </li>
+            <li class="nav-group">
+                <a class="nav-link nav-group-toggle" href="#">
+                    <i class="bi bi-bell"></i>
+                    Thông báo
+                </a>
+                <ul class="nav-group-items">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span class="nav-icon"></span>
+                            Alerts
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
+    </div>
+    <div class="wrapper d-flex flex-column min-vh-100 bg-light">
+        <header class="header header-sticky mb-4">
+            <div class="container-fluid">
+                <button class="header-toggler px-md-0 me-md-3" type="button"
+                        onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+                    <i class="bi bi-list"></i>
+                </button><a class="header-brand d-md-none" href="#">
+                    <img src="~/img/logo2.png" height="50" width="70" alt="">
+                </a>
+                <ul class="header-nav d-none d-md-flex">
+                    <li class="nav-item"><a class="nav-link" href="#">Bảng điều khiển</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Tài khoản</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Cài đặt</a></li>
+                </ul>
+                <ul class="header-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-bell"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-list-stars"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-envelope-open"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="header-nav ms-3">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            <div class="avatar avatar-md">
+                                <img class="avatar-img" src="~/img/avatars/8.jpg" alt="user@email.com">
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end pt-0">
+                            <div class="dropdown-header bg-light py-2">
+                                <div class="fw-semibold">Tài khoản</div>
+                            </div><a class="dropdown-item" href="#">
+
+                                <i class="bi bi-bell"></i>
+                                Cập nhật<span class="badge badge-sm bg-info ms-2">42</span>
+                            </a><a class="dropdown-item" href="#">
+                                <i class="bi bi-envelope-open"></i>
+                                Tin nhắn<span class="badge badge-sm bg-success ms-2">42</span>
+                            </a><a class="dropdown-item"
+                                   href="#">
+                                <i class="bi bi-person-circle"></i>
+                                Hồ sơ
+                            </a><a class="dropdown-item" href="#">
+                                <i class="bi bi-gear"></i>
+                                Cài đặt
+                            </a><a class="dropdown-item" href="#">
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
+                                    <i class="icon bi bi-lock"></i>
+                                    Khóa tài khoản
+                                </a><a class="dropdown-item" href="#">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                     Đăng xuất
+                                </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="header-divider"></div>
+            <div class="container-fluid">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb my-0 ms-2">
+                        <li class="breadcrumb-item">
+                            <!-- if breadcrumb is single--><span>Home</span>
+                        </li>
+                        <li class="breadcrumb-item active"><span>Dashboard</span></li>
+                    </ol>
+                </nav>
+            </div>
+        </header>
+
+        <footer class="footer">
+            <div>© 2023 ReviewResort</div>
+        </footer>
+    </div>
     <div>
         @RenderBody()
     </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="~/js/coreui.bundle.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+
+    <!-- <script src="js/main.js"></script> -->
+
 </body>
 </html>
