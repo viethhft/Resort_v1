@@ -52,6 +52,33 @@
         $(thisAlert).removeClass('alert-validate');
     }
     
+    const ipnElement = document.querySelector('#ipnPassword')
+    const btnElement = document.querySelector('#btnPassword')
+    var icon1 = document.querySelector('.show-password i');
+    btnElement.addEventListener('click', function () {
+        const currentType = ipnElement.getAttribute('type')
+        if (currentType === 'password') {
+            ipnElement.setAttribute('type', 'text');
+            icon1.className = "fa fa-eye-slash";
+        } else {
+            ipnElement.setAttribute('type', 'password');
+            icon1.className = "fa fa-eye";
+        }
+    })
+
+    const ipnElement2 = document.querySelector('#ipnPassword2')
+    const btnElement2 = document.querySelector('#btnPassword2')
+    var icon2 = document.querySelector('.show-password2 i');
+    btnElement2.addEventListener('click', function () {
+        const currentType2 = ipnElement2.getAttribute('type')
+        if (currentType2 === 'password') {
+            ipnElement2.setAttribute('type', 'text');
+            icon2.className = "fa fa-eye-slash";
+        } else {
+            ipnElement2.setAttribute('type', 'password');
+            icon2.className = "fa fa-eye";
+        }
+    })
     
 
 })(jQuery);

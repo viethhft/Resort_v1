@@ -16,5 +16,11 @@ namespace Resort.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [Route("Admin/Sign")]
+        public IActionResult AdminSignAccount()
+        {
+            return View();
+        }
     }
 }
