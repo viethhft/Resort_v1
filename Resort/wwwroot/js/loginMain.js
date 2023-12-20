@@ -79,6 +79,6 @@
             icon2.className = "fa fa-eye";
         }
     })
-    
+
 
 })(jQuery);
