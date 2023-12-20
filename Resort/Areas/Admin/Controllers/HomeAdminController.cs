@@ -10,5 +10,11 @@ namespace Resort.Areas.Admin.Controllers
         {
             return View();
         }
+
+        [Route("Admin/Login")]
+        public IActionResult AdminLoginAccount()
+        {
+            return View();
+        }
     }
 }
