@@ -9,9 +9,11 @@ namespace Resort.Areas.Admin.Controllers
     {
 		User user = null;
         private readonly IUserRepo _userRepo;
-        public HomeAdminController(IUserRepo userRepo)
+        private readonly IUserDetailRepo _userDetailRepo;
+        public HomeAdminController(IUserRepo userRepo,IUserDetailRepo userDetailRepo)
         {
             _userRepo= userRepo;
+            _userDetailRepo = userDetailRepo;
         }
 		[Route("Admin/Home")]
         public async Task<IActionResult> IndexAdmin(string email, string pass)
@@ -19,6 +21,7 @@ namespace Resort.Areas.Admin.Controllers
 			var user = await _userRepo.GetUserByEmailAndPass(email, pass);
 			if (user != null)
 			{
+                ViewData["userDetail"] = await _userDetailRepo.GetUserDetailByIdUser(user.IdUser);
 				return View(user);
 			}
 			else
