@@ -4826,17 +4826,3 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     padding: 46px 70px 36px 61px;
 }
-.wrap-login100 {
-    width: 960px;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 43px 140px 33px 95px;
-}

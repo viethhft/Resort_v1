@@ -3,6 +3,7 @@
     ViewData["Title"] = "Sign";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +32,17 @@
 
 </head>
 <body>
+	<style>
+		.wrap-login100{
+			padding: 45px 130px 33px 95px;
+		}
+		.login100-form-title{
+			padding-bottom: 30px;
+		}
+		.login100-pic{
+			padding-top: 150px;
+		}
+	</style>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -179,4 +191,3 @@
 
 </body>
 </html>
-
