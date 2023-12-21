@@ -1,7 +1,8 @@
-﻿@using Resort.Models;
-@model User
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Resort.Models;
 @{
     var userDetail = ViewData["userDetail"] as UserDetail;
+    var user = ViewData["user"] as UserDetail;
 }
 <!DOCTYPE html>
 
@@ -40,12 +41,11 @@
             </li>
             <li class="nav-group">
                 <a class="nav-link nav-group-toggle" href="#">
-
                     <i class="bi bi-plus-circle"></i>
                     Thêm Resort
                 </a>
                 <ul class="nav-group-items">
-                    <li class="nav-item"><a class="nav-link" href="forms/form-control.html">Form Control</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-action="CreateResort" asp-controller="HomeAdmin">Thêm khu nghỉ mát</a></li>
                     <li class="nav-item"><a class="nav-link" href="forms/select.html"> Select</a></li>
                     <li class="nav-item"><a class="nav-link" href="forms/checks-radios.html"> Checks and radios</a></li>
                     <li class="nav-item"><a class="nav-link" href="forms/range.html"> Range</a></li>
@@ -152,13 +152,12 @@
                 </nav>
             </div>
         </header>
-
+        <div>
+            @RenderBody()
+        </div>
         <footer class="footer">
             <div>© 2023 ReviewResort</div>
         </footer>
-    </div>
-    <div>
-        @RenderBody()
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="~/js/coreui.bundle.min.js"></script>

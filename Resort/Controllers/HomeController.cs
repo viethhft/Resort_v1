@@ -22,14 +22,14 @@ namespace Resort.Controllers
         {
             return View();
         }
-        [Route("Home/Login")]
-        public IActionResult LoginAccount()
+
+        public IActionResult Login()
         {
             return View();
         }
 
         [Route("Home/Sign")]
-        public IActionResult SignAccount()
+        public IActionResult Sign()
         {
             return View();
         }
