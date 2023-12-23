@@ -66,7 +66,7 @@
                         <div class="col-xl-1 col-lg-1">
                             <div class="logo-img">
                                 <a asp-action="Index" asp-controller="Home">
-                                    <img src="img/logo2.png" alt="logo" width="80px" height="60px">
+                                    <img src="~/img/logo2.png" alt="logo" width="80px" height="60px">
                                 </a>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                                     </ul>
                                 </div>
                                 <div class="book_btn d-none d-lg-block">
-                                    <a class="popup-with-form" title="Đăng nhập hoặc đăng ký tài khoản">Đăng nhập</a>
+                                    <a title="Đăng nhập hoặc đăng ký tài khoản" asp-action="Login" asp-controller="Home">Đăng nhập</a>
                                 </div>
                             </div>
                         </div>
@@ -111,9 +111,7 @@
         </div>
     </header>
     <!-- header-end -->
-    <div>
         @RenderBody()
-    </div>
     <!-- footer -->
     <footer class="footer">
         <div class="footer_top">

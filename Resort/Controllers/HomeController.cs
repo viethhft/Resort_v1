@@ -23,6 +23,23 @@ namespace Resort.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [Route("Home/Sign")]
+        public IActionResult Sign()
+        {
+            return View();
+        }
+
+        [Route("Home/ForgotPassword")]
+        public IActionResult ForGotPassword()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
