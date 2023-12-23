@@ -1,55 +1,67 @@
 ﻿@model Resort.Models.Resort
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "CreateResort";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>CreateResort</h1>
-
-<h4>Resort</h4>
-<hr />
-<div class="row ml-5">
+<div>
+    <h1 class="text-center card-header bi bi-emoji-laughing">THÊM MỚI</h1>
+</div>
+<div class="ms-5 mb-5 mt-2">
+    <button class="btn btn-outline-primary" asp-action="Index" asp-controller="Admin">Quay lại danh sách</button>
+</div>
+<div class="alert alert-success" role="alert" style="width: 300px; float: right; margin-right: 20px;" hidden>
+    Thêm thành công!
+</div>
+<div class="alert alert-danger" role="alert" style="width: 300px; float: right; margin-right: 20px;" hidden>
+    Thêm thất bại!
+</div>
+<div class="ml-5 ms-5">
     <div class="col-md-4">
         <form asp-action="CreateResort">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label">Tiêu đề</label>
+            <div class="form-group m-2">
+                <label asp-for="Title" class="control-label m-1">Tiêu đề</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label">Tên khu nghỉ mát</label>
-                <input asp-for="Name" class="form-control" />
+            <div class="form-group m-2">
+                <label asp-for="Name" class="control-label m-1">Tên khu nghỉ mát</label>
+                <input asp-for="Name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Thumb" class="control-label">Ảnh thu nhỏ</label>
+            <div class="form-group m-2">
+                <label asp-for="Thumb" class="control-label m-1">Ảnh thu nhỏ</label>
                 <input asp-for="Thumb" class="form-control" type="file"/>
                 <span asp-validation-for="Thumb" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label">Nội dung</label>
-                <input asp-for="Description" class="form-control" />
+            <div class="form-group m-2">
+                <label asp-for="Description" class="control-label m-1">Nội dung</label>
+                <textarea asp-for="Description" cols="30" rows="5" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label">Trạng thái</label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdCommune" class="control-label">Xã</label>
+            <div class="form-group m-2">
+                <label asp-for="IdCommune" class="control-label m-1">Tỉnh</label>
                 <select asp-for="IdCommune" class ="form-control" asp-items="ViewBag.IdCommune"></select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group m-2">
+                <label asp-for="IdCommune" class="control-label m-1">Xã</label>
+                <select asp-for="IdCommune" class ="form-control" asp-items="ViewBag.IdCommune"></select>
+            </div>
+            <div class="form-group m-2">
+                <label asp-for="IdCommune" class="control-label m-1">Huyện</label>
+                <select asp-for="IdCommune" class ="form-control" asp-items="ViewBag.IdCommune"></select>
+            </div>
+            <div class="form-group m-2">
+                <input type="submit" value="Thêm" class="btn btn-outline-success" id="cr"/>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+#cr{
+    float: right;
+}
+</style>
 

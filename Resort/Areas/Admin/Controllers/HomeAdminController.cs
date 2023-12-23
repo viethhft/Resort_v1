@@ -40,7 +40,9 @@ namespace Resort.Areas.Admin.Controllers
             ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
             return View();
         }
-        
+
+
+
 
 
     }
