@@ -49,6 +49,13 @@ namespace Resort.Areas.Admin.Controllers
             ViewBag.ListProvince = await ListProvince();
             return View();
         }
+        [Route("Admin/ListResort")]
+        public IActionResult ListResort()
+        {
+            ViewData["user"] = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("user"));
+            ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
+            return View();
+        }
 
         private async Task<List<SelectListItem>> ListProvince()
         {
@@ -63,5 +70,13 @@ namespace Resort.Areas.Admin.Controllers
             }
             return lst;
         }
+        [Route("Admin/UserManagent")]
+        public IActionResult UserManagent()
+        {
+            ViewData["user"] = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("user"));
+            ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
+            return View();
+        }
+
     }
 }

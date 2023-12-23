@@ -12,6 +12,11 @@
     <title>@ViewData["title"]</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
     <meta name="theme-color" content="#ffffff">
     <!-- Vendors styles-->
     <link rel="stylesheet" href="~/css/simplebarVdn.css">
@@ -45,6 +50,7 @@
                     Thêm Resort
                 </a>
                 <ul class="nav-group-items">
+                    <li class="nav-item"><a class="nav-link" asp-action="ListResort" asp-controller="HomeAdmin"> Danh sách khu nghỉ mát</a></li>
                     <li class="nav-item"><a class="nav-link" asp-action="CreateResort" asp-controller="HomeAdmin">Thêm khu nghỉ mát</a></li>
                     <li class="nav-item"><a class="nav-link"> Khu nghỉ mát chi tiết</a></li>
                     <li class="nav-item"><a class="nav-link" href="forms/checks-radios.html"> Dịch vụ</a></li>
@@ -61,7 +67,7 @@
                     <li class="nav-item" >
                         <a class="nav-link align-center" asp-action="UserManagent" asp-controller="HomeAdmin">
                         <i class="bi bi-file-earmark-person"></i>
-                           Tài khoản người dùng
+                           Danh sách người dùng
                         </a>
                     </li>
                 </ul>
@@ -70,7 +76,7 @@
         <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
     </div>
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
-        <header class="header header-sticky mb-4">
+        <header class="header header-sticky">
             <div class="container-fluid">
                 <button class="header-toggler px-md-0 me-md-3" type="button"
                         onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
@@ -126,10 +132,12 @@
                                 <i class="bi bi-gear"></i>
                                 Cài đặt
                             </a><a class="dropdown-item" href="#">
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">
                                     <i class="icon bi bi-lock"></i>
                                     Khóa tài khoản
-                                </a><a class="dropdown-item" href="#">
+                                </a>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                     <i class="bi bi-box-arrow-right"></i>
                                      Đăng xuất
                                 </a>
@@ -142,9 +150,9 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb my-0 ms-2">
                         <li class="breadcrumb-item">
-                            <!-- if breadcrumb is single--><span>Home</span>
+                            <!-- if breadcrumb is single--><span>Trang chủ</span>
                         </li>
-                        <li class="breadcrumb-item active"><span>Dashboard</span></li>
+                        <li class="breadcrumb-item active"><span>Bảng điều khiển</span></li>
                     </ol>
                 </nav>
             </div>
@@ -155,11 +163,88 @@
         <footer class="footer">
             <div>© 2023 ReviewResort</div>
         </footer>
+
+        <!--THÔNG BÁO ĐĂNG XUẤT-->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thông báo!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center fs-50">
+                        Bạn có muốn đăng xuất!?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-success">Đăng xuất</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <!-- CoreUI and necessary plugins-->
     <script src="~/js/coreui.bundle.min.js"></script>
     <script src="~/js/simplebar.min.js"></script>
 
-    <!-- <script src="js/main.js"></script> -->
+     <script src="~/js/main.js"></script>
+    <script>
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("example");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place,
+                    based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /* If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+    </script>
 </body>
 </html>

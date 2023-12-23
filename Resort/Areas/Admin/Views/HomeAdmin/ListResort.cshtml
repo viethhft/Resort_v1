@@ -1,0 +1,95 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Danh sách khu nghỉ mát";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="card">
+    <h1 class="card-header text-center">@ViewData["Title"]</h1>
+    <div class="card-body">
+        <div class="input-group">
+            <div class="form-outline">
+                <input type="search" id="form1" class="form-control" placeholder="Tìm kiếm" />
+            </div>
+            <button type="button" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <div>
+            <a class="float-end mb-3" asp-action="CreateResort" asp-controller="HomeAdmin">
+                <button class="btn btn-success">+Thêm thông tin Resort</button>
+            </a>
+        </div>
+        <table id="example" class="table table-striped" cellspacing="0" width="100%">
+            <thead class="text-center !important">
+            <th onclick="sortTable(0)" class="bi bi-sort-alpha-down">ID</th>
+            <th onclick="sortTable(1)">Tiêu đề</th>
+            <th onclick="sortTable(2)">Tên</th>
+            <th onclick="sortTable(3)">Hình ảnh</th>
+            <th onclick="sortTable(4)">Chú thích</th>
+            <th onclick="sortTable(5)">Xã</th>
+            <th onclick="sortTable(6)">Trạng thái</th>
+            </thead>
+            <tbody class="text-center !important">
+                <tr class="justify-content-center">
+                    <td>1</td>
+                    <td>Đại Lải1</td>
+                    <td>Hồ Đại Lải</td>
+                    <td><img src="../Img/dai_lai.jpeg" width="100px" height="100px"></td>
+                    <td>ở Phúc Yên nè</td>
+                    <td>Phúc Yên</td>
+                    <td>Hiển thị 1</td>
+                    <td>
+                            <button class="btn btn-warning">Sửa</button>
+                            <button class="btn btn-danger">Xóa</button>
+                    </td>
+                </tr>
+                <tr class="justify-content-center">
+                    <td>2</td>
+                    <td>Đại 2</td>
+                    <td>Hồ Đại Lải</td>
+                    <td><img src="../Img/dai_lai.jpeg" width="100px" height="100px"></td>
+                    <td>ở Phúc Yên nè</td>
+                    <td>Phúc Yên</td>
+                    <td>Hiển thị 2</td>
+                    <td>
+                        <button class="btn btn-warning">Sửa</button>
+                        <button class="btn btn-danger">Xóa</button>
+                    </td>
+                </tr>
+                <tr class="justify-content-center">
+                    <td>3</td>
+                    <td>Đại Lải3</td>
+                    <td>Hồ Đại Lải4</td>
+                    <td><img src="../Img/dai_lai.jpeg" width="100px" height="100px"></td>
+                    <td>ở Phúc Yên nè</td>
+                    <td>Phúc Yên</td>
+                    <td>Hiển thị 3</td>
+                    <td>
+                        <button class="btn btn-warning">Sửa</button>
+                        <button class="btn btn-danger">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <style>
+        th:hover {
+            cursor: pointer;
+        }
+    </style>
+
+</div>
+

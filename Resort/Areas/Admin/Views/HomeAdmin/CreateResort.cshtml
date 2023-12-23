@@ -1,15 +1,15 @@
 ﻿@model Resort.Models.Resort
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-	ViewData["Title"] = "CreateResort";
-	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "CreateResort";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div>
-	<h1 class="text-center card-header bi bi-emoji-laughing">THÊM MỚI</h1>
+    <h1 class="text-center card-header bi bi-emoji-laughing">THÊM MỚI</h1>
 </div>
 <div class="ms-5 mb-5 mt-2">
-	<button class="btn btn-outline-primary" asp-action="Index" asp-controller="Admin">Quay lại danh sách</button>
+    <button class="btn btn-outline-primary" asp-action="Index" asp-controller="Admin">Quay lại danh sách</button>
 </div>
 <div class="alert alert-success" role="alert" style="width: 300px; float: right; margin-right: 20px;" hidden>
 	Thêm thành công!
@@ -64,78 +64,4 @@
 	float: right;
 }
 </style>
-
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#province").change(function(){
-				var idprovince=$("#province").val();
-				$.ajax({
-					url:"District",
-					tpye:"GET",
-					data:{id:idprovince},
-					success:function(data){
-						document.getElementById('district_select').hidden=false;
-						var start=0;
-						var end=0;
-						for(let i=0;i<data.length;i++){
-							if(data[i]=="{"){
-								start=i;
-							}
-							if(data[i]=="}"){
-								end=i+1;
-							}
-							if(start!=0 && end!=0){
-								var obj=data.slice(start,end);
-								var term=JSON.parse(obj);
-								start=0;
-								end=0;
-
-								var dis = document.getElementById("district");
-								var option = document.createElement("option");
-								option.text = term.Name;
-								option.value = term.IdDistrict;
-								dis.add(option);
-							}
-						}
-					}
-				});
-			});
-			$("#district").change(function(){
-				var iddistrict=$("#district").val();
-				$.ajax({
-					url:"Commune",
-					tpye:"GET",
-					data:{id:iddistrict},
-					success:function(data){
-						document.getElementById('commune_select').hidden=false;
-						var start=0;
-						var end=0;
-						for(let i=0;i<data.length;i++){
-							if(data[i]=="{"){
-								start=i;
-							}
-							if(data[i]=="}"){
-								end=i+1;
-							}
-							if(start!=0 && end!=0){
-								var obj=data.slice(start,end);
-								var term=JSON.parse(obj);
-								start=0;
-								end=0;
-
-								var com = document.getElementById("commune");
-								var option = document.createElement("option");
-								option.text = term.Name;
-								option.value = term.IdCommune;
-								com.add(option);
-							}
-						}
-					}
-				})
-			});
-		});
-	</script>
-
-
 

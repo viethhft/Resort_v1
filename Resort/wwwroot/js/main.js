@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
 "use strict";
 // TOP Menu Sticky
 $(window).on('scroll', function () {
@@ -319,7 +319,7 @@ $(document).ready(function() {
 
 
 
-//------- Mailchimp js --------//  
+    //------- Mailchimp js --------//  
 function mailChimp() {
   $('#mc_embed_signup').find('form').ajaxChimp();
 }
@@ -342,6 +342,23 @@ mailChimp();
             $("#search_input_box").slideToggle();
             $("#search_input").focus();
         });
+
+    //alerrt user
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
+
+    //aleer đăng xuất
+    //alerrt user
+    var myModal = document.getElementById('myModal2')
+    var myInput = document.getElementById('myInput2')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
 
 
 })(jQuery);	
