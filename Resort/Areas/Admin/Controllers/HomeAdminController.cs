@@ -19,9 +19,16 @@ namespace Resort.Areas.Admin.Controllers
         [Route("Admin/Home")]
         public IActionResult IndexAdmin()
         {
-            ViewData["user"] = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("user"));
-            ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
-            return View();
+            try
+            {
+				ViewData["user"] = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("user"));
+				ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
+                return View();
+			}
+			catch (Exception)
+            {
+                return View("AdminLoginAccount");
+            }
         }
         [Route("Admin/Login")]
         public IActionResult AdminLoginAccount()
