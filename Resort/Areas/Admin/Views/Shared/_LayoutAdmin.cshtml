@@ -132,10 +132,12 @@
                                 <i class="bi bi-gear"></i>
                                 Cài đặt
                             </a><a class="dropdown-item" href="#">
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">
                                     <i class="icon bi bi-lock"></i>
                                     Khóa tài khoản
-                                </a><a class="dropdown-item" href="#">
+                                </a>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                                     <i class="bi bi-box-arrow-right"></i>
                                      Đăng xuất
                                 </a>
@@ -161,6 +163,25 @@
         <footer class="footer">
             <div>© 2023 ReviewResort</div>
         </footer>
+
+        <!--THÔNG BÁO ĐĂNG XUẤT-->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Thông báo!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center fs-50">
+                        Bạn có muốn đăng xuất!?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-success">Đăng xuất</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- CoreUI and necessary plugins-->
     <script src="~/js/coreui.bundle.min.js"></script>

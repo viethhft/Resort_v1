@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
 "use strict";
 // TOP Menu Sticky
 $(window).on('scroll', function () {
@@ -346,6 +346,15 @@ mailChimp();
     //alerrt user
     var myModal = document.getElementById('myModal')
     var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
+
+    //aleer đăng xuất
+    //alerrt user
+    var myModal = document.getElementById('myModal2')
+    var myInput = document.getElementById('myInput2')
 
     myModal.addEventListener('shown.bs.modal', function () {
         myInput.focus()
