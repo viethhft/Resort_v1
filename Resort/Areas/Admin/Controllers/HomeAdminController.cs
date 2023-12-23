@@ -48,8 +48,13 @@ namespace Resort.Areas.Admin.Controllers
             return View();
         }
 
-
-
+        [Route("Admin/UserManagent")]
+        public IActionResult UserManagent()
+        {
+            ViewData["user"] = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("user"));
+            ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
+            return View();
+        }
 
     }
 }
