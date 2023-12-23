@@ -24,6 +24,7 @@ namespace Resort.Context
 		public DbSet<ConvenientResort> ConvenientResorts { get; set; }
 		public DbSet<TypeRoom> TypeRooms { get; set; }
 		public DbSet<TypeRoomResortDetail> TypeRoomResortDetails { get; set; }
+		public DbSet<ImageReviewResort> ImageReviewResorts { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -69,6 +70,9 @@ namespace Resort.Context
 			modelBuilder.Entity<TypeRoom>()
 				.HasKey(t => t.IdTypeRoom);
 
+			modelBuilder.Entity<ImageReviewResort>()
+				.HasKey(irr => irr.IdImage);
+
 			modelBuilder.Entity<TypeRoomResortDetail>()
 				.HasKey(trrd => new { trrd.IdTypeRoom, trrd.IdResortDetail});
 
@@ -76,6 +80,13 @@ namespace Resort.Context
 				.HasOne(u => u.Role)
 				.WithOne(r => r.User)
 				.HasForeignKey<User>(u => u.IdRole);
+
+			modelBuilder.Entity<User>()
+				.HasMany(u => u.Resorts)
+				.WithOne(r => r.User)
+				.HasForeignKey(u => u.IdUser)
+				.OnDelete(DeleteBehavior.ClientSetNull)
+				.IsRequired();
 
 			modelBuilder.Entity<UserDetail>()
 				.HasOne(ud => ud.User)
@@ -86,6 +97,10 @@ namespace Resort.Context
 				.HasOne(r => r.Commune)
 				.WithMany(c => c.Resort)
 				.HasForeignKey(r => r.IdCommune);
+			modelBuilder.Entity<Models.Resort>()
+				.HasMany(r => r.ImageReviewResorts)
+				.WithOne(irr => irr.Resort)
+				.HasForeignKey(r => r.IdResort);
 
 			modelBuilder.Entity<ResortDetail>()
 				.HasOne(rd => rd.Resort)

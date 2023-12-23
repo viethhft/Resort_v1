@@ -5,7 +5,7 @@
 namespace Resort.Migrations
 {
     /// <inheritdoc />
-    public partial class v1 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -103,6 +103,7 @@ namespace Resort.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     IdRole = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -144,7 +145,9 @@ namespace Resort.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DoB = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageProfile = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IdUser = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -168,7 +171,9 @@ namespace Resort.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Thumb = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdCommune = table.Column<int>(type: "int", nullable: false)
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    IdCommune = table.Column<int>(type: "int", nullable: false),
+                    IdUser = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,6 +184,11 @@ namespace Resort.Migrations
                         principalTable: "Communes",
                         principalColumn: "IdCommune",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Resorts_Users_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "Users",
+                        principalColumn: "IdUser");
                 });
 
             migrationBuilder.CreateTable(
@@ -206,21 +216,39 @@ namespace Resort.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rates",
+                name: "ImageReviewResorts",
                 columns: table => new
                 {
-                    IdRate = table.Column<int>(type: "int", nullable: false)
+                    IdImage = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdUser = table.Column<int>(type: "int", nullable: false),
-                    RateStar = table.Column<int>(type: "int", nullable: false),
-                    ResortIdResort = table.Column<int>(type: "int", nullable: false)
+                    IdResort = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rates", x => x.IdRate);
+                    table.PrimaryKey("PK_ImageReviewResorts", x => x.IdImage);
                     table.ForeignKey(
-                        name: "FK_Rates_Resorts_ResortIdResort",
-                        column: x => x.ResortIdResort,
+                        name: "FK_ImageReviewResorts_Resorts_IdResort",
+                        column: x => x.IdResort,
+                        principalTable: "Resorts",
+                        principalColumn: "IdResort",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rates",
+                columns: table => new
+                {
+                    IdResort = table.Column<int>(type: "int", nullable: false),
+                    IdUser = table.Column<int>(type: "int", nullable: false),
+                    RateStar = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rates", x => new { x.IdUser, x.IdResort });
+                    table.ForeignKey(
+                        name: "FK_Rates_Resorts_IdResort",
+                        column: x => x.IdResort,
                         principalTable: "Resorts",
                         principalColumn: "IdResort",
                         onDelete: ReferentialAction.Cascade);
@@ -318,14 +346,14 @@ namespace Resort.Migrations
                 column: "IdProvince");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rates_IdUser",
-                table: "Rates",
-                column: "IdUser");
+                name: "IX_ImageReviewResorts_IdResort",
+                table: "ImageReviewResorts",
+                column: "IdResort");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rates_ResortIdResort",
+                name: "IX_Rates_IdResort",
                 table: "Rates",
-                column: "ResortIdResort");
+                column: "IdResort");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ResortDetails_IdResort",
@@ -342,6 +370,11 @@ namespace Resort.Migrations
                 name: "IX_Resorts_IdCommune",
                 table: "Resorts",
                 column: "IdCommune");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Resorts_IdUser",
+                table: "Resorts",
+                column: "IdUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TypeRoomResortDetails_IdResortDetail",
@@ -368,6 +401,9 @@ namespace Resort.Migrations
                 name: "ConvenientResorts");
 
             migrationBuilder.DropTable(
+                name: "ImageReviewResorts");
+
+            migrationBuilder.DropTable(
                 name: "Rates");
 
             migrationBuilder.DropTable(
@@ -392,19 +428,19 @@ namespace Resort.Migrations
                 name: "TypeRooms");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Resorts");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Communes");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Districts");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Provinces");

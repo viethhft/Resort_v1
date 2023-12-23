@@ -9,9 +9,12 @@
 		public string Description { get; set; }
 		public int Status { get; set; }
 		public int IdCommune { get; set; }
+		public int IdUser { get; set; }
 		public virtual Commune Commune { get; set; }
 		public virtual ResortDetail ResortDetail { get; set; }
 		public virtual ICollection<Rate> Rates { get; set; }
+		public virtual ICollection<ImageReviewResort> ImageReviewResorts { get; set; }
+		public virtual User User { get; set; }
 		public virtual ICollection<ConvenientResort> ConvenientResorts { get; set; }
 	}
 }

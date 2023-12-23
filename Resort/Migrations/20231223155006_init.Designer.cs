@@ -11,8 +11,8 @@ using Resort.Context;
 namespace Resort.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20231220061112_v3")]
-    partial class v3
+    [Migration("20231223155006_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,6 +100,28 @@ namespace Resort.Migrations
                     b.ToTable("Districts");
                 });
 
+            modelBuilder.Entity("Resort.Models.ImageReviewResort", b =>
+                {
+                    b.Property<int>("IdImage")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdImage"));
+
+                    b.Property<int>("IdResort")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdImage");
+
+                    b.HasIndex("IdResort");
+
+                    b.ToTable("ImageReviewResorts");
+                });
+
             modelBuilder.Entity("Resort.Models.Province", b =>
                 {
                     b.Property<int>("IdProvince")
@@ -150,6 +172,9 @@ namespace Resort.Migrations
                     b.Property<int>("IdCommune")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -168,6 +193,8 @@ namespace Resort.Migrations
                     b.HasKey("IdResort");
 
                     b.HasIndex("IdCommune");
+
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Resorts");
                 });
@@ -330,6 +357,9 @@ namespace Resort.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdUser")
                         .HasColumnType("int");
 
@@ -390,6 +420,17 @@ namespace Resort.Migrations
                     b.Navigation("Province");
                 });
 
+            modelBuilder.Entity("Resort.Models.ImageReviewResort", b =>
+                {
+                    b.HasOne("Resort.Models.Resort", "Resort")
+                        .WithMany("ImageReviewResorts")
+                        .HasForeignKey("IdResort")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resort");
+                });
+
             modelBuilder.Entity("Resort.Models.Rate", b =>
                 {
                     b.HasOne("Resort.Models.Resort", "Resort")
@@ -417,7 +458,14 @@ namespace Resort.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Resort.Models.User", "User")
+                        .WithMany("Resorts")
+                        .HasForeignKey("IdUser")
+                        .IsRequired();
+
                     b.Navigation("Commune");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Resort.Models.ResortDetail", b =>
@@ -515,6 +563,8 @@ namespace Resort.Migrations
                 {
                     b.Navigation("ConvenientResorts");
 
+                    b.Navigation("ImageReviewResorts");
+
                     b.Navigation("Rates");
 
                     b.Navigation("ResortDetail")
@@ -547,6 +597,8 @@ namespace Resort.Migrations
             modelBuilder.Entity("Resort.Models.User", b =>
                 {
                     b.Navigation("Rates");
+
+                    b.Navigation("Resorts");
 
                     b.Navigation("UserDetail")
                         .IsRequired();
