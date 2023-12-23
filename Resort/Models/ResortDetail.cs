@@ -8,6 +8,7 @@
 		public string AddressDetail { get; set; }
 		public string ListImage { get; set; }
 		public virtual Resort Resort { get; set; }
+		public virtual ICollection<ImageReviewResort> ImageReviewResorts { get; set; }
 		public virtual ICollection<TypeRoomResortDetail> TypeRoomResortDetails { get; set; }
 		public virtual ICollection<ResortDetailServices> ResortDetailServices { get; set; }
 	}

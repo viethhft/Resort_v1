@@ -43,7 +43,7 @@ namespace Resort.Areas.Admin.Controllers
 			{
 				User user = new User() { Email = email, Password = ValidateRegex.ReversePass(pass), IdRole = 2, Status = 1 };
 				await _userSer.AddUser(user);
-				user=await _userSer.GetUserByEmailAndPass(email,pass);
+				user=await _userSer.GetUserByEmailAndPass(email, pass);
 				UserDetail userDetail = new UserDetail() { IdUser = user.IdUser, Description = "", Gender = gender == "Nam" ? 0 : 1, DoB = date, UserName = name, ImageProfile = gender == "Nam" ? "6.jpg" : "7.jpg" };
 				await _userDetailRepo.AddUserDetail(userDetail);
 				return RedirectToAction("AdminLoginAccount", "HomeAdmin");

@@ -2,6 +2,7 @@
 using Resort.Context;
 using Resort.Models;
 using Resort.Repo.IReponsitories;
+using Resort.Validate;
 
 namespace Resort.Repo.Reponsitories
 {
@@ -29,7 +30,7 @@ namespace Resort.Repo.Reponsitories
 
 		public async Task<User> GetUserByEmailAndPass(string email, string pass)
 		{
-			var user = await _myContext.Users.Where(c => c.Email == email && c.Password == pass).AsNoTracking().FirstOrDefaultAsync();
+			var user = await _myContext.Users.Where(c => c.Email == email && c.Password == ValidateRegex.ReversePass(pass)).AsNoTracking().FirstOrDefaultAsync();
 			return user;
 		}
 

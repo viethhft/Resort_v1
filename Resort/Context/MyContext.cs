@@ -97,9 +97,10 @@ namespace Resort.Context
 				.HasOne(r => r.Commune)
 				.WithMany(c => c.Resort)
 				.HasForeignKey(r => r.IdCommune);
-			modelBuilder.Entity<Models.Resort>()
+
+			modelBuilder.Entity<Models.ResortDetail>()
 				.HasMany(r => r.ImageReviewResorts)
-				.WithOne(irr => irr.Resort)
+				.WithOne(irr => irr.ResortDetail)
 				.HasForeignKey(r => r.IdResort);
 
 			modelBuilder.Entity<ResortDetail>()
