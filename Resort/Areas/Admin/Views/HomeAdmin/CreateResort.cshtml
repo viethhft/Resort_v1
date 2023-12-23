@@ -1,67 +1,141 @@
 ﻿@model Resort.Models.Resort
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "CreateResort";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	ViewData["Title"] = "CreateResort";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div>
-    <h1 class="text-center card-header bi bi-emoji-laughing">THÊM MỚI</h1>
+	<h1 class="text-center card-header bi bi-emoji-laughing">THÊM MỚI</h1>
 </div>
 <div class="ms-5 mb-5 mt-2">
-    <button class="btn btn-outline-primary" asp-action="Index" asp-controller="Admin">Quay lại danh sách</button>
+	<button class="btn btn-outline-primary" asp-action="Index" asp-controller="Admin">Quay lại danh sách</button>
 </div>
 <div class="alert alert-success" role="alert" style="width: 300px; float: right; margin-right: 20px;" hidden>
-    Thêm thành công!
+	Thêm thành công!
 </div>
 <div class="alert alert-danger" role="alert" style="width: 300px; float: right; margin-right: 20px;" hidden>
-    Thêm thất bại!
+	Thêm thất bại!
 </div>
 <div class="ml-5 ms-5">
-    <div class="col-md-4">
-        <form asp-action="CreateResort">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group m-2">
-                <label asp-for="Title" class="control-label m-1">Tiêu đề</label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group m-2">
-                <label asp-for="Name" class="control-label m-1">Tên khu nghỉ mát</label>
-                <input asp-for="Name" class="form-control"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group m-2">
-                <label asp-for="Thumb" class="control-label m-1">Ảnh thu nhỏ</label>
-                <input asp-for="Thumb" class="form-control" type="file"/>
-                <span asp-validation-for="Thumb" class="text-danger"></span>
-            </div>
-            <div class="form-group m-2">
-                <label asp-for="Description" class="control-label m-1">Nội dung</label>
-                <textarea asp-for="Description" cols="30" rows="5" class="form-control"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group m-2">
-                <label asp-for="IdCommune" class="control-label m-1">Tỉnh</label>
-                <select asp-for="IdCommune" class ="form-control" asp-items="ViewBag.IdCommune"></select>
-            </div>
-            <div class="form-group m-2">
-                <label asp-for="IdCommune" class="control-label m-1">Xã</label>
-                <select asp-for="IdCommune" class ="form-control" asp-items="ViewBag.IdCommune"></select>
-            </div>
-            <div class="form-group m-2">
-                <label asp-for="IdCommune" class="control-label m-1">Huyện</label>
-                <select asp-for="IdCommune" class ="form-control" asp-items="ViewBag.IdCommune"></select>
-            </div>
-            <div class="form-group m-2">
-                <input type="submit" value="Thêm" class="btn btn-outline-success" id="cr"/>
-            </div>
-        </form>
-    </div>
+	<div class="col-md-4">
+		<form asp-action="CreateResort">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group m-2">
+				<label asp-for="Title" class="control-label m-1">Tiêu đề</label>
+				<input asp-for="Title" class="form-control" />
+				<span asp-validation-for="Title" class="text-danger"></span>
+			</div>
+			<div class="form-group m-2">
+				<label asp-for="Name" class="control-label m-1">Tên khu nghỉ mát</label>
+				<input asp-for="Name" class="form-control"/>
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="form-group m-2">
+				<label asp-for="Thumb" class="control-label m-1">Ảnh thu nhỏ</label>
+				<input asp-for="Thumb" class="form-control" type="file"/>
+				<span asp-validation-for="Thumb" class="text-danger"></span>
+			</div>
+			<div class="form-group m-2">
+				<label asp-for="Description" class="control-label m-1">Nội dung</label>
+				<textarea asp-for="Description" cols="30" rows="5" class="form-control"></textarea>
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="form-group m-2">
+				<label class="control-label m-1">Tỉnh</label>
+				@Html.DropDownList("Province",ViewBag.ListProvince as List<SelectListItem>,"Chọn tỉnh",new {@id="province",@class="form-control"})
+			</div>
+			 <div class="form-group m-2" hidden id="district_select">
+				<label  class="control-label m-1">Huyện</label>
+				@Html.DropDownList("District",new List<SelectListItem>(),"Chọn huyện",new {@id="district",@class="form-control"})
+			</div>
+			<div class="form-group m-2" hidden id="commune_select">
+				<label  class="control-label m-1">Xã</label>
+				@Html.DropDownList("Commune",new List<SelectListItem>(),"Chọn xã",new {@id="commune",@class="form-control"})
+			</div>
+			<div class="form-group m-2">
+				<input type="submit" value="Thêm" class="btn btn-outline-success" id="cr"/>
+			</div>
+		</form>
+	</div>
 </div>
 <style>
 #cr{
-    float: right;
+	float: right;
 }
 </style>
+
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#province").change(function(){
+				var idprovince=$("#province").val();
+				$.ajax({
+					url:"District",
+					tpye:"GET",
+					data:{id:idprovince},
+					success:function(data){
+						document.getElementById('district_select').hidden=false;
+						var start=0;
+						var end=0;
+						for(let i=0;i<data.length;i++){
+							if(data[i]=="{"){
+								start=i;
+							}
+							if(data[i]=="}"){
+								end=i+1;
+							}
+							if(start!=0 && end!=0){
+								var obj=data.slice(start,end);
+								var term=JSON.parse(obj);
+								start=0;
+								end=0;
+
+								var dis = document.getElementById("district");
+								var option = document.createElement("option");
+								option.text = term.Name;
+								option.value = term.IdDistrict;
+								dis.add(option);
+							}
+						}
+					}
+				});
+			});
+			$("#district").change(function(){
+				var iddistrict=$("#district").val();
+				$.ajax({
+					url:"Commune",
+					tpye:"GET",
+					data:{id:iddistrict},
+					success:function(data){
+						document.getElementById('commune_select').hidden=false;
+						var start=0;
+						var end=0;
+						for(let i=0;i<data.length;i++){
+							if(data[i]=="{"){
+								start=i;
+							}
+							if(data[i]=="}"){
+								end=i+1;
+							}
+							if(start!=0 && end!=0){
+								var obj=data.slice(start,end);
+								var term=JSON.parse(obj);
+								start=0;
+								end=0;
+
+								var com = document.getElementById("commune");
+								var option = document.createElement("option");
+								option.text = term.Name;
+								option.value = term.IdCommune;
+								com.add(option);
+							}
+						}
+					}
+				})
+			});
+		});
+	</script>
+
+
 

@@ -16,7 +16,7 @@ namespace Resort.Ser.Services
             return _communeRepo.GetAllCommune();
         }
 
-        public Task<Commune> GetCommuneByID(int id)
+        public Task<List<Commune>> GetCommuneByID(int id)
         {
             return _communeRepo.GetCommuneByID(id);
         }

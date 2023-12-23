@@ -5,6 +5,6 @@ namespace Resort.Ser.IServices
 	public interface ICommuneSer
 	{
         public Task<List<Commune>> GetAllCommune();
-        public Task<Commune> GetCommuneByID(int id);
+        public Task<List<Commune>> GetCommuneByID(int id);
     }
 }
