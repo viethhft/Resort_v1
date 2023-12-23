@@ -40,7 +40,13 @@ namespace Resort.Areas.Admin.Controllers
             ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
             return View();
         }
-
+        [Route("Admin/ListResort")]
+        public IActionResult ListResort()
+        {
+            ViewData["user"] = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("user"));
+            ViewData["userDetail"] = JsonConvert.DeserializeObject<UserDetail>(HttpContext.Session.GetString("userDetail"));
+            return View();
+        }
 
 
 

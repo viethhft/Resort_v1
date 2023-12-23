@@ -1,15 +1,13 @@
 ﻿@model Resort.Models.Resort
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    ViewData["Title"] = "CreateResort";
+    ViewData["Title"] = "Thêm khu nghỉ mát";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<div>
-    <h1 class="text-center card-header bi bi-emoji-laughing">THÊM MỚI</h1>
-</div>
+<div class="card">
+     <h1 class="card-header text-center bi bi-emoji-laughing">@ViewData["Title"]</h1>
 <div class="ms-5 mb-5 mt-2">
-    <button class="btn btn-outline-primary" asp-action="Index" asp-controller="Admin">Quay lại danh sách</button>
+    <a class="btn btn-outline-primary" asp-action="ListResort" asp-controller="HomeAdmin">Xem danh sách</a>
 </div>
 <div class="alert alert-success" role="alert" style="width: 300px; float: right; margin-right: 20px;" hidden>
     Thêm thành công!
@@ -65,3 +63,4 @@
 }
 </style>
 
+</div>

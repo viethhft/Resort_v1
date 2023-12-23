@@ -319,7 +319,7 @@ $(document).ready(function() {
 
 
 
-//------- Mailchimp js --------//  
+    //------- Mailchimp js --------//  
 function mailChimp() {
   $('#mc_embed_signup').find('form').ajaxChimp();
 }
@@ -342,6 +342,7 @@ mailChimp();
             $("#search_input_box").slideToggle();
             $("#search_input").focus();
         });
+
 
 
 })(jQuery);	
