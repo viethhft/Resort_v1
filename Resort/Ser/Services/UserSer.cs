@@ -21,14 +21,19 @@ namespace Resort.Ser.Services
             return _userRepo.GetUserByEmailAndPass(email, pass);
         }
 
-        public Task<User> GetUserById(int id)
-        {
-            return _userRepo.GetUserById(id);
-        }
+		public Task<bool> GetUserByEmail(string email)
+		{
+            return _userRepo.GetUserByEmail(email);
+		}
 
-        public Task<bool> UpdateUser(User user)
+		public Task<bool> UpdateUser(User user)
         {
             return _userRepo.UpdateUser(user);
         }
-    }
+
+		public Task<User> GetUserById(int id)
+		{
+            return _userRepo.GetUserById(id);
+		}
+	}
 }

@@ -4,6 +4,9 @@ using Resort.Models;
 using Resort.Repo.IReponsitories;
 using Resort.Ser.IServices;
 using Resort.Validate;
+using System.Net;
+using System.Net.Mail;
+using System.Net.WebSockets;
 
 namespace Resort.Areas.Admin.Controllers
 {
@@ -12,11 +15,13 @@ namespace Resort.Areas.Admin.Controllers
 	{
 		User user = null;
 		private readonly IUserSer _userSer;
-		private readonly IUserDetailSer _userDetailRepo;
-		public AccountAdminController(IUserSer userSer, IUserDetailSer userDetailSer)
+		private readonly IUserDetailSer _userDetailSer;
+		private readonly IEmailSendSer _emailSendSer;
+		public AccountAdminController(IUserSer userSer, IUserDetailSer userDetailSer, IEmailSendSer emailSendSer)
 		{
 			_userSer = userSer;
-			_userDetailRepo = userDetailSer;
+			_userDetailSer = userDetailSer;
+			_emailSendSer = emailSendSer;
 		}
 
 		public async Task<IActionResult> Login(string email, string pass)
@@ -24,7 +29,7 @@ namespace Resort.Areas.Admin.Controllers
 			var user = await _userSer.GetUserByEmailAndPass(email, pass);
 			if (user != null)
 			{
-				ViewData["userDetail"] = await _userDetailRepo.GetUserDetailByIdUser(user.IdUser);
+				ViewData["userDetail"] = await _userDetailSer.GetUserDetailByIdUser(user.IdUser);
 				var userIn4 = JsonConvert.SerializeObject(await _userSer.GetUserById(user.IdUser));
 				var userDetailIn4 = JsonConvert.SerializeObject(ViewData["userDetail"]);
 				HttpContext.Session.SetString("user", userIn4);
@@ -43,9 +48,9 @@ namespace Resort.Areas.Admin.Controllers
 			{
 				User user = new User() { Email = email, Password = ValidateRegex.ReversePass(pass), IdRole = 2, Status = 1 };
 				await _userSer.AddUser(user);
-				user=await _userSer.GetUserByEmailAndPass(email, pass);
+				user = await _userSer.GetUserByEmailAndPass(email, pass);
 				UserDetail userDetail = new UserDetail() { IdUser = user.IdUser, Description = "", Gender = gender == "Nam" ? 0 : 1, DoB = date, UserName = name, ImageProfile = gender == "Nam" ? "6.jpg" : "7.jpg" };
-				await _userDetailRepo.AddUserDetail(userDetail);
+				await _userDetailSer.AddUserDetail(userDetail);
 				return RedirectToAction("AdminLoginAccount", "HomeAdmin");
 			}
 			else
@@ -53,5 +58,39 @@ namespace Resort.Areas.Admin.Controllers
 				return RedirectToAction("AdminSignAccount", "HomeAdmin");
 			}
 		}
+
+		[Route("Admin/SendCode")]
+		public async Task<string> SendCodeForEmail(string email)
+		{
+			if (email==null)
+			{
+				return "Vui lòng nhập email của bạn";
+			}
+			else
+			{
+				var emailFrom = await _emailSendSer.GetEmailSend();
+				var code = ValidateRegex.CreateCodeAccept();
+				MailAddress mailFrom = new MailAddress(emailFrom.Email, "Review Resort");
+				MailAddress mailTo = new MailAddress(email);
+				MailMessage message = new MailMessage(mailFrom,mailTo);
+				message.Subject = "Mã xác nhận ";
+				message.Body = $"Mã xác nhận của bạn là: <b>{code}</b> <br>" +
+							   $"Mã xác nhận chỉ có hiệu lực trong 5 phút! <br>" +
+							   $"Liên hệ với chúng tôi qua Email: binhlonchammamtom@gmail.com<br>" +
+							   $"hoặc liên hệ trực tiếp qua 0124567821 để được hỗ trợ trực tiếp";
+				message.IsBodyHtml = true;
+				message.Priority = MailPriority.High;
+				SmtpClient client = new SmtpClient();
+				client.Host = "smtp.gmail.com";
+				client.Port = 587;
+				client.EnableSsl = true;
+				client.DeliveryMethod = SmtpDeliveryMethod.Network;
+				client.UseDefaultCredentials = false;
+				client.Credentials = new NetworkCredential(emailFrom.Email, emailFrom.PassWord);
+				await client.SendMailAsync(message);
+				return $"Mã xác thực đã gửi tới email của bạn!! + {code}";
+			}
+		}
+		
 	}
 }

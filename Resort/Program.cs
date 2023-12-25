@@ -10,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("Resort"));
@@ -25,6 +24,7 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<IUserRepo,UserRepo>();
 builder.Services.AddScoped<IUserDetailRepo,UserDetailRepo>();
+builder.Services.AddScoped<IEmailSendRepo,EmailSendRepo>();
 builder.Services.AddScoped<ICommuneRepo,CommuneRepo>();
 builder.Services.AddScoped<IProvinceRepo,ProvinceRepo>();
 builder.Services.AddScoped<IDistrictRepo,DistrictRepo>();
@@ -41,6 +41,7 @@ builder.Services.AddScoped<IConvenientResortRepo,ConvenientResortRepo>();
 
 builder.Services.AddScoped<IUserSer, UserSer>();
 builder.Services.AddScoped<IUserDetailSer, UserDetailSer>();
+builder.Services.AddScoped<IEmailSendSer, EmailSendSer>();
 builder.Services.AddScoped<ICommuneSer, CommuneSer>();
 builder.Services.AddScoped<IProvinceSer, ProvinceSer>();
 builder.Services.AddScoped<IDistrictSer, DistrictSer>();

@@ -25,6 +25,7 @@ namespace Resort.Context
 		public DbSet<TypeRoom> TypeRooms { get; set; }
 		public DbSet<TypeRoomResortDetail> TypeRoomResortDetails { get; set; }
 		public DbSet<ImageReviewResort> ImageReviewResorts { get; set; }
+		public DbSet<EmailSend> EmailSends { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -75,6 +76,9 @@ namespace Resort.Context
 
 			modelBuilder.Entity<TypeRoomResortDetail>()
 				.HasKey(trrd => new { trrd.IdTypeRoom, trrd.IdResortDetail});
+
+			modelBuilder.Entity<EmailSend>()
+				.HasKey(es => es.ID);
 
 			modelBuilder.Entity<User>()
 				.HasOne(u => u.Role)

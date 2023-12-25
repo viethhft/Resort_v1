@@ -43,6 +43,23 @@ namespace Resort.Validate
 
 			return new_char;
 		}
-
+		public static string CreateCodeAccept()
+		{
+			string code = "";
+			for (int i = 0; i < 6; i++)
+			{
+				Random random = new Random();
+				int num = random.Next(1,3);
+				if (num==1)
+				{
+					code += random.Next(0, 9).ToString();
+				}
+				else
+				{
+					code += Convert.ToChar(random.Next(65, 90)).ToString();
+				}
+			}
+			return code;
+		}
 	}
 }

@@ -28,6 +28,19 @@ namespace Resort.Repo.Reponsitories
 			}
 		}
 
+		public async Task<bool> GetUserByEmail(string email)
+		{
+			var user=await _myContext.Users.Where(c=>c.Email==email).FirstOrDefaultAsync();
+			if (user!=null)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 		public async Task<User> GetUserByEmailAndPass(string email, string pass)
 		{
 			var user = await _myContext.Users.Where(c => c.Email == email && c.Password == ValidateRegex.ReversePass(pass)).AsNoTracking().FirstOrDefaultAsync();
