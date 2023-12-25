@@ -74,10 +74,7 @@ namespace Resort.Areas.Admin.Controllers
 				MailAddress mailTo = new MailAddress(email);
 				MailMessage message = new MailMessage(mailFrom,mailTo);
 				message.Subject = "Mã xác nhận ";
-				message.Body = $"Mã xác nhận của bạn là: <b>{code}</b> <br>" +
-							   $"Mã xác nhận chỉ có hiệu lực trong 5 phút! <br>" +
-							   $"Liên hệ với chúng tôi qua Email: binhlonchammamtom@gmail.com<br>" +
-							   $"hoặc liên hệ trực tiếp qua 0124567821 để được hỗ trợ trực tiếp";
+				message.Body = $"<body style=\"font-family: Arial, sans-serif;\">\r\n\r\n    <h2>Xác nhận đăng ký hoặc quên mật khẩu</h2>\r\n\r\n    <p>Cuộc sống vốn có rất nhiều lựa chọn, cảm ơn bạn vì đã chọn ResortReview.<br> Cảm ơn bạn đã đăng ký tài khoản. Dưới đây là mã xác nhận của bạn:</p>\r\n\r\n    <p style=\"font-size: 20px; font-weight: bold; color: #007BFF;\">[Mã Xác Nhận]</p>chỉ có hiệu lực trong vòng 5 phút\r\n\r\n    <p>Vui lòng không chia sẻ mã xác nhận này với người khác. Nếu bạn không thực hiện đăng ký, vui lòng bỏ qua email này.</p>\r\n    <p>Nếu bạn có bất kỳ thắc mắc hãy liên hệ qua: <b>contactResortView@gmail.com</b>, <br>\r\n    Hoặc liên hệ qua fanpage của chúng tôi [Địa chỉ fanpage]</p>\r\n    <p>Trân trọng,<br>\r\n    ResortReview</p>\r\n</body>";
 				message.IsBodyHtml = true;
 				message.Priority = MailPriority.High;
 				SmtpClient client = new SmtpClient();
